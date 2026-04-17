@@ -2,7 +2,14 @@ const express = require("express");
 require("dotenv").config();
 
 const app = express();
+const cors = require("cors");
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
 const authMiddleware = require("./middleware/authMiddleware");
@@ -13,10 +20,16 @@ const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/auth", authRoutes);
 
+
 app.get("/protected", authMiddleware, (req, res) => {
   res.json({ msg: "Protected route accessed" });
 });
 
+const adminMiddleware = require("./middleware/adminMiddleware");
+
+app.get("/admin", authMiddleware, adminMiddleware, (req, res) => {
+  res.json({ msg: "Admin dashboard" });
+});
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
 
@@ -25,6 +38,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("DB Connected"))
 .catch(err => console.log(err));
+
 
 app.get("/test-user", async (req, res) => {
   try {
