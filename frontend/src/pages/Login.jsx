@@ -66,7 +66,7 @@ if (res) {
     navigate("/user-dashboard");
   }
 }
-
+  };
   
 
   const displayError = localError || error;
@@ -112,7 +112,7 @@ if (res) {
             </div>
           )}
 
-          {/* EMAIL (Component) */}
+          {/* EMAIL */}
           <InputField
             label="Email Address"
             type="email"
@@ -122,7 +122,7 @@ if (res) {
             onChange={handleChange}
           />
 
-          {/* PASSWORD (Component) */}
+          {/* PASSWORD */}
           <InputField
             label="Password"
             type="password"
@@ -144,36 +144,21 @@ if (res) {
               Remember me
             </label>
 
-            <Link to="/forgotpassword" className="text-blue-600 hover:underline">
+            <Link to="/forgotpassword" className="text-indigo-600 hover:underline">
               Forgot password?
             </Link>
           </div>
 
-          {/* BUTTON (Component) */}
+          {/* BUTTON */}
           <Button text="Login" loading={loading} type="submit" />
         </form>
 
         {/* Divider */}
-        <div className="relative text-center my-6">
-          <span className="relative z-10 bg-white px-3 text-slate-500 text-sm">
-            or continue with
-          </span>
-          <div className="absolute left-0 right-0 top-1/2 h-px bg-slate-200" />
-        </div>
-
-        {/* Google Button (with your image) */}
-        <button
-          type="button"
-          className="w-full bg-white border border-slate-200 rounded-xl py-2.5 flex items-center justify-center gap-2 font-medium text-sm"
-        >
-          <img src={googleIcon} alt="Google" className="w-5 h-5" />
-          Continue with Google
-        </button>
-
+    
         {/* Footer */}
         <p className="text-center mt-6 text-sm text-slate-600">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-600 font-medium">
+          <Link to="/signup" className="text-indigo-600 font-medium">
             Create one
           </Link>
         </p>
@@ -181,5 +166,5 @@ if (res) {
     </div>
   );
 };
-}
+
 export default Login;

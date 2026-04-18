@@ -1,24 +1,16 @@
 import { useState } from "react";
-import { loginUser, signupUser } from "../services/authService";
+import { login as loginService, signup as signupService } from "../services/authService";
 
 const useAuth = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError]     = useState("");
 
-  const login = async (data) => {
+  const login = async (formData) => {
     setLoading(true);
-    setError(null);
-
+    setError("");
     try {
-      const res = await loginUser(data);
-
-      // const token = res.data?.token;
-       const { token, role } = res.data;
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-
-      return { token, role };
+      const data = await loginService(formData.email, formData.password);
+      return data; // { token, role, ... }
     } catch (err) {
       setError(err.response?.data?.msg || "Login failed");
       return null;
@@ -27,19 +19,12 @@ const useAuth = () => {
     }
   };
 
-  const signup = async (data) => {
+  const signup = async (formData) => {
     setLoading(true);
-    setError(null);
-
+    setError("");
     try {
-      const res = await signupUser(data);
-
-      const token = res.data?.token;
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-
-      return res;
+      const data = await signupService(formData.name, formData.email, formData.password);
+      return data;
     } catch (err) {
       setError(err.response?.data?.msg || "Signup failed");
       return null;
@@ -48,11 +33,7 @@ const useAuth = () => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-  };
-
-  return { login, signup, logout, loading, error };
+  return { login, signup, loading, error };
 };
 
 export default useAuth;

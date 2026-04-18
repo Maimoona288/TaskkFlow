@@ -1,75 +1,7 @@
-// //hooks import
-// import { useState } from "react";
-// import { signupUser } from "../services/authService";
-// import { useNavigate } from "react-router-dom";
-// import InputField from "../components/InputField";
-// import useAuth from "../hooks/useAuth";
 
-// //navigation ky liye
-// const Signup = () => {
-//   const navigate = useNavigate();
-
-//   //form data state me save krna
-//   const [form, setForm] = useState({
-//     name: "",
-//     email: "",
-//     password: "",
-//   });
-
-//   //dynamic update
-//   const handleChange = (e) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   //page reload stop
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       await signupUser(form);
-//       alert("Signup successful");
-//       navigate("/");
-//     } catch (err) {
-//       alert(err.response?.data?.msg || "Signup failed");
-    
-//     }
-//   };
-
-//   return (
-//     <div className="flex justify-center items-center h-screen bg-white shadow-lg p-6 rounded-xl">
-//       <form onSubmit={handleSubmit} className="w-80">
-//         <h2 className="text-2xl font-bold text-center mb-4">Signup</h2>
-
-//      <InputField
-//   name="name"
-//   placeholder="Name"
-//   value={form.name}
-//   onChange={handleChange}
-// />
-
-// <InputField
-//   name="email"
-//   placeholder="Email"
-//   value={form.email}
-//   onChange={handleChange}
-// />
-
-// <InputField
-//   name="password"
-//   type="password"
-//   value={form.password}
-//   onChange={handleChange}
-// />
-//         <button type="submit">Signup</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Signup;
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signupUser } from "../services/authService";
+import { signup } from "../services/authService";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 
@@ -123,7 +55,7 @@ const Signup = () => {
 
     setLoading(true);
     try {
-      await signupUser({
+      await signup({
         name: form.name,
         email: form.email,
         password: form.password,
@@ -226,7 +158,7 @@ const Signup = () => {
         {/* Footer */}
         <p className="text-center mt-6 text-sm text-slate-600">
           Already have an account?{" "}
-          <Link to="/" className="text-blue-600 font-medium hover:underline">
+          <Link to="/" className="text-indigo-600 font-medium hover:underline">
             Sign in
           </Link>
         </p>

@@ -13,12 +13,14 @@ app.use(
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
 const authMiddleware = require("./middleware/authMiddleware");
+const taskRoutes = require('./routes/taskRoutes');
 const mongoose = require("mongoose");
 const User = require("./models/User");
 
 const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/auth", authRoutes);
+app.use('/api/tasks', taskRoutes);
 
 
 app.get("/protected", authMiddleware, (req, res) => {
