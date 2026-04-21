@@ -1,32 +1,3 @@
-// import { Link } from "react-router-dom";
-// import useReveal from "../hooks/useReveal";
-// import { useState } from "react";
-// import { useEffect } from "react"
-// import { useRef } from "react"
-// import { useNavigate } from "react-router-dom"
-// import { Routes, Route } from "react-router-dom"
-
-
-// export default function CtaSection() {
-//   const [ref, visible] = useReveal();
-
-//   return (
-//     <section className="py-24 text-center bg-indigo-50 px-4 sm:px-10 lg:px-20">
-//       <div ref={ref} className={visible ? "opacity-100" : "opacity-0 "}>
-//         <h2 className="font-bold mb-8 text-2xl sm:text-3xl lg:text-4xl ">
-//           Start organizing today
-//         </h2>
-
-//         <Link
-//           to="/signup"
-//           className="bg-indigo-500 text-white px-8 py-3 rounded-xl w-full sm:w-auto"
-//         >
-//           Get Started
-//         </Link>
-//       </div>
-//     </section>
-//   );
-// }
 import { Link } from "react-router-dom";
 import useReveal from "../../hooks/useReveal";
 

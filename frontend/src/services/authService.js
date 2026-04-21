@@ -1,30 +1,37 @@
-// import API from "./api";
-
-// export const loginUser = (data) => {
-//   return API.post("/auth/login", data);
-// };
-
-// export const signupUser = (data) => {
-//   return API.post("/auth/signup", data);
-// };
-
 import api from "./api";
 
+// LOGIN
 export const login = async (email, password) => {
   const res = await api.post("/auth/login", { email, password });
-  // Save token to localStorage so it persists on page refresh
+
   localStorage.setItem("token", res.data.token);
+  localStorage.setItem("user", JSON.stringify(res.data.user));
+
   return res.data;
 };
 
-export const signup = async (name, email, password) => {
-  const res = await api.post("/auth/signup", { name, email, password });
+//signup
+export const signup = async (formData) => {
+  const payload = {
+    name: formData.name,
+    email: formData.email,
+    password: formData.password,
+  };
+
+  console.log("Sending payload:", payload); // debug
+
+  const res = await api.post("/auth/signup", payload);
+
   localStorage.setItem("token", res.data.token);
+  localStorage.setItem("user", JSON.stringify(res.data.user));
+
   return res.data;
 };
 
+// LOGOUT
 export const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("user");
 };
 
 export const getToken = () => localStorage.getItem("token");

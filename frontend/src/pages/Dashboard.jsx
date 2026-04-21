@@ -12,11 +12,13 @@ import {
   deleteTask,
   updateTask,
 } from "../services/taskService";
+
 import { logout } from "../services/authService";
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [showForm, setShowForm] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
 
@@ -24,6 +26,7 @@ const Dashboard = () => {
   const [priority, setPriority] = useState("medium");
   const [dueDate, setDueDate] = useState("");
 
+  const [search, setSearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -43,6 +46,31 @@ const Dashboard = () => {
 
     loadTasks();
   }, []);
+
+  // STATS (single source of truth)
+  const completedCount = tasks.filter(t => t.status === "completed").length;
+  const pendingCount = tasks.filter(t => t.status !== "completed").length;
+  const highCount = tasks.filter(t => t.priority === "high").length;
+
+  const progress = tasks.length
+    ? Math.round((completedCount / tasks.length) * 100)
+    : 0;
+
+  // FILTER + SEARCH + SORT (SaaS LOGIC)
+  const filteredTasks = tasks
+    .filter((t) => {
+      if (activeFilter === "all") return true;
+      if (activeFilter === "completed") return t.status === "completed";
+      if (activeFilter === "pending") return t.status !== "completed";
+      if (activeFilter === "high") return t.priority === "high";
+      return true;
+    })
+    .filter((t) =>
+      t.title.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort(
+      (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
+    );
 
   // ADD TASK
   const handleAddTask = async (e) => {
@@ -71,11 +99,8 @@ const Dashboard = () => {
 
   // TOGGLE
   const handleToggle = async (task) => {
-    const newStatus =
-      task.status === "completed" ? "pending" : "completed";
-
     const updated = await updateTask(task._id, {
-      status: newStatus,
+      status: task.status === "completed" ? "pending" : "completed",
     });
 
     setTasks(tasks.map((t) => (t._id === task._id ? updated : t)));
@@ -87,32 +112,10 @@ const Dashboard = () => {
     navigate("/login");
   };
 
-  // FILTER
-  const filtered = tasks.filter((t) => {
-    if (activeFilter === "all") return true;
-    if (activeFilter === "pending") return t.status === "pending";
-    if (activeFilter === "completed") return t.status === "completed";
-    if (activeFilter === "high") return t.priority === "high";
-    return true;
-  });
-
-  // STATS
-  const completedCount = tasks.filter(
-    (t) => t.status === "completed"
-  ).length;
-  const pendingCount = tasks.filter(
-    (t) => t.status !== "completed"
-  ).length;
-  const highCount = tasks.filter(
-    (t) => t.priority === "high"
-  ).length;
-
-  const progress = tasks.length
-    ? Math.round((completedCount / tasks.length) * 100)
-    : 0;
-
   return (
     <div className="flex">
+
+      {/* SIDEBAR */}
       <Sidebar
         tasks={tasks}
         completedCount={completedCount}
@@ -126,13 +129,25 @@ const Dashboard = () => {
         setSidebarOpen={setSidebarOpen}
       />
 
+      {/* MAIN */}
       <main className="flex-1 ml-0 md:ml-64 p-4 sm:p-6 bg-slate-50 min-h-screen">
+
         <Header
           showForm={showForm}
           setShowForm={setShowForm}
           setSidebarOpen={setSidebarOpen}
         />
 
+        {/* SEARCH */}
+        <input
+          type="text"
+          placeholder="Search tasks..."
+          className="w-full p-2 border rounded-lg mb-4"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        {/* FORM */}
         {showForm && (
           <TaskForm
             handleAddTask={handleAddTask}
@@ -145,10 +160,11 @@ const Dashboard = () => {
           />
         )}
 
+        {/* TASK LIST */}
         {loading ? (
           <p>Loading...</p>
         ) : (
-          filtered.map((task) => (
+          filteredTasks.map((task) => (
             <TaskCard
               key={task._id}
               task={task}
@@ -157,6 +173,7 @@ const Dashboard = () => {
             />
           ))
         )}
+
       </main>
     </div>
   );

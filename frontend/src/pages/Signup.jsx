@@ -44,29 +44,41 @@ const Signup = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    const validationError = validate();
-    if (validationError) {
-      setError(validationError);
+  const validationError = validate();
+  if (validationError) {
+    setError(validationError);
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const res = await signup({
+      name: form.name,
+      email: form.email,
+      password: form.password,
+    });
+
+    //  safety check 
+    if (!res || !res.token) {
+      setError("Signup failed: invalid server response");
       return;
     }
 
-    setLoading(true);
-    try {
-      await signup({
-        name: form.name,
-        email: form.email,
-        password: form.password,
-      });
-      navigate("/");
-    } catch (err) {
-      setError(err.response?.data?.msg || "Signup failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    localStorage.setItem("token", res.token);
+    localStorage.setItem("user", JSON.stringify(res.user));
+
+    navigate("/user-dashboard");  
+
+  } catch (err) {
+    setError(err.response?.data?.msg || "Signup failed. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex justify-center items-center px-5 py-8"
@@ -158,7 +170,7 @@ const Signup = () => {
         {/* Footer */}
         <p className="text-center mt-6 text-sm text-slate-600">
           Already have an account?{" "}
-          <Link to="/" className="text-indigo-600 font-medium hover:underline">
+          <Link to="/login" className="text-indigo-600 font-medium hover:underline">
             Sign in
           </Link>
         </p>
@@ -168,3 +180,4 @@ const Signup = () => {
 };
 
 export default Signup;
+

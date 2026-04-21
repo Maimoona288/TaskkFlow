@@ -9,7 +9,8 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
+  
+  
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between
@@ -58,6 +59,7 @@ export default function Navbar() {
         >
           Log in
         </Link>
+        
       </div>
     </nav>
   );

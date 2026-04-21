@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useEffect } from "react"
-import { useRef } from "react"
+// import { useState } from "react";
+// import { useEffect } from "react"
+// import { useRef } from "react"
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { Routes, Route } from "react-router-dom"
 
 const Header = ({ showForm, setShowForm , setSidebarOpen}) => {
@@ -14,9 +14,9 @@ const Header = ({ showForm, setShowForm , setSidebarOpen}) => {
           {new Date().toDateString()}
         </p>
       </div>
- <button
+<button
   onClick={() => setSidebarOpen(true)}
-  className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+  className="md:hidden fixed top-4 right-4 z-50 w-10 h-10 flex items-center justify-center rounded-xl hover:bg-slate-50 transition"
 >
   ☰
 </button>

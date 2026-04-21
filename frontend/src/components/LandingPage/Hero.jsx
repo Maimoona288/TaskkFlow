@@ -3,13 +3,14 @@ import { useEffect } from "react"
 import { useRef } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
-import { Routes, Route } from "react-router-dom"
+import Carousel from "./Carousel";
+
 
 export default function Hero() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-8 lg:px-20 pt-24 pb-20 relative overflow-hidden bg-gradient-to-b from-indigo-50 to-white">
 
-      <h1 className="mt-20 text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-[1.1] text-slate-900 max-w-3xl mb-5">
+      <h1 className="mt-20 text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-[1.1] text-slate-900 max-w-3xl mb-10">
         Manage your tasks{" "}
         <span className="bg-gradient-to-br from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
           the right way
@@ -36,11 +37,9 @@ export default function Hero() {
         </a>
       </div>
 
-      <img
-        src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1100"
-        alt="dashboard"
-        className="rounded-2xl shadow-lg  w-full max-w-[900px] mx-auto"
-      />
+<div className="mt-10 sm:mt-14">
+  <Carousel />
+</div>
     </section>
   );
 }

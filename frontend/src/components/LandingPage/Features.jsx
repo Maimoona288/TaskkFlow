@@ -106,7 +106,7 @@ export default function Features() {
               {f.title}
             </h3>
             <p
-              style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.6}}
+              style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.6 ,}}
             >
               {f.desc}
             </p>
