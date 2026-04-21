@@ -38,7 +38,8 @@ const Sidebar = ({
           <div className="flex items-center justify-between mb-6">
             {/* LOGO */}
             <Link to="/" className="block">
-              <span className="font-extrabold text-xl text-slate-900">
+              <span className="font-extrabold text-xl text-slate-900"
+               style={{ fontFamily: "'Sora', sans-serif" }}>
                 Task<span className="text-indigo-500">it</span>
               </span>
             </Link>

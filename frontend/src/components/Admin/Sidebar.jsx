@@ -12,7 +12,7 @@ const AdminSidebar = ({
 }) => {
   return (
     <>
-      {/* OVERLAY for mobil */}
+      {/* OVERLAY for mobile */}
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
@@ -24,7 +24,7 @@ const AdminSidebar = ({
       <aside
         className={`
           fixed top-0 left-0 h-full w-64 bg-white p-5 flex flex-col justify-between z-50
-          transform transition-transform duration-300 ease-in-out shadow-xl border-r
+          transform transition-transform duration-300 ease-in-out shadow-xl 
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
         `}
@@ -35,12 +35,13 @@ const AdminSidebar = ({
           <div className="flex items-center justify-between mb-6">
             {/* LOGO */}
             <Link to="/" className="block">
-              <span className="font-extrabold text-xl text-slate-900">
+              <span className="font-extrabold text-xl text-slate-900"
+               style={{ fontFamily: "'Sora', sans-serif" }}>
                 Task<span className="text-indigo-500">it</span>
               </span>
             </Link>
 
-            {/* CLOSE BUTTON (TOP RIGHT) */}
+            {/* CLOSE BUTTON */}
             <button
               onClick={() => setSidebarOpen(false)}
               className="md:hidden w-9 h-9 flex items-center justify-center rounded-full bg-red-50 text-red-600 hover:bg-red-100 transition"

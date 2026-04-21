@@ -1,16 +1,158 @@
-# React + Vite
+# 📋 TaskkFlow (Taskit)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
 
-Currently, two official plugins are available:
+TaskkFlow (Taskit) is a full-stack task management system built using the MERN stack. It provides secure authentication, role-based access control (Admin/User), and a complete dashboard for managing users and tasks. The system is designed to simulate real-world project architecture with REST APIs, database integration, and a responsive frontend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Secure Authentication (JWT-based Login & Signup)
+- Role-Based Access Control (Admin & User)
+- Admin Dashboard with Overview
+- Task Management (Create, Read, Update, Delete)
+- View all Users(Admin Only)
+- RESTful API Integration
+- MongoDB Database Integration
+- Responsive UI for Mobile & Desktop
+- Protected Routes and Middleware Security
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+**Frontend:**
+- React.js
+- Tailwind CSS
+
+**Backend:**
+- Node.js
+- Express.js
+
+**Database:**
+- MongoDB
+
+**Authentication:**
+- JSON Web Token (JWT)
+
+
+---
+
+## 📁 Project Structure
+
+### Backend
+
+backend/
+├── models/
+├── routes/
+│ ├── authRoute.js
+│ ├── adminRoute.js
+│ ├── taskRoute.js
+├── controllers/
+├── middleware/
+├── index.js
+
+
+### Frontend
+
+frontend/
+├── src/
+│ ├── components/
+│ ├── pages/
+│ ├── services/
+| |__ hooks/
+│ ├── App.jsx
+│ ├── main.jsx
+
+
+
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/Maimoona288/TaskkFlow
+
+
+
+2. Install Dependencies
+
+
+Frontend
+
+cd frontend
+npm install
+
+Backend
+
+cd backend
+npm install
+
+
+3. Environment Variables
+
+Create a .env file in the backend directory and add:
+
+MONGO_URI=your_mongodb_url
+JWT_SECRET=your_secret_key
+PORT=5000
+
+
+4. Run the Application
+
+Start Backend
+node index.js
+nodemon index.js
+
+
+Start Frontend
+npm run dev
+
+
+🔗 API Endpoints
+
+Authentication
+
+POST /api/auth/signup → Register new user
+POST /api/auth/login → Login user
+Users (Admin Only)
+GET /api/admin/users → Get all users
+
+
+
+Tasks(users)
+
+GET /api/tasks → Get all tasks
+POST /api/tasks → Create task
+PUT /api/tasks/:id → Update task
+DELETE /api/tasks/:id → Delete task
+
+
+🔐 Security Features
+
+JWT authentication for protected routes
+Password hashing using bcrypt
+Role-based authorization middleware
+Protected admin routes
+
+
+📌 Future Improvements
+
+Real-time notifications
+Task assignment system
+Drag & drop task board 
+Email notifications
+
+
+
+
+
+👩‍💻 Author
+
+Maimoona Shahbaz
+
+
+
