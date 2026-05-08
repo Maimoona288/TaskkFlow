@@ -59,7 +59,7 @@ const Login = () => {
     try {
       const res = await login(form);
 
-      // 🔑 token extraction (supports different backend response shapes)
+      //  token extraction (supports different backend response shapes)
       const token = res?.token || res?.data?.token;
 
       if (!token) {
@@ -67,12 +67,13 @@ const Login = () => {
         return;
       }
 
-      localStorage.setItem("token", token);
+      // localStorage.setItem("token", token);
 
-      // 🔓 decode JWT payload safely
+      //  decode JWT payload safely
       const payload = JSON.parse(atob(token.split(".")[1]));
 
-      // 🚦 role-based redirect
+      const user = res.user;
+      //  role-based redirect
       if (payload.role === "admin") {
         navigate("/admin-dashboard");
       } else {
