@@ -11,9 +11,8 @@ export default function Terms() {
 
         {/* HERO */}
         <section className="bg-gradient-to-br from-indigo-600 to-violet-600 px-6 pt-32 pb-20 text-center">
-          <span className="text-xs font-bold tracking-[0.18em] uppercase text-indigo-200">
-            Legal
-          </span>
+       
+         
 
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mt-3">
             Terms & Conditions
